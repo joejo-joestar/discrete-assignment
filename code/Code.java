@@ -128,30 +128,8 @@ public class Code {
         }
     }
 
-    // // method to return user input relations as ordered pairs as a set
-    // public static HashSet<OrderedPair> inputOrderedPairs() {
-    // HashSet<OrderedPair> Pairs = new HashSet<>();
-    // Scanner joe = new Scanner(System.in);
-    // System.out.print("Please enter the number of relations: ");
-    // int numberOfRelations = joe.nextInt();
-    // joe.nextLine();
-
-    // System.out.println("Enter the ordered pairs, one by one, in x,y form:");
-    // for (int i = 0; i < numberOfRelations; i++) {
-    // Pairs.add(inputOrderedPair(joe));
-
-    // }
-    // return Pairs;
-
-    // }
-
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
-        System.out.print("Please enter the cardinality of the relation: ");
-        int endLimit = input.nextInt();
-
-        Integer i = 0;
 
         // initializing variables to take user input
         System.out.println("Please enter the Elements of Domain (in one line separated by ','): ");
@@ -160,22 +138,24 @@ public class Code {
         System.out.println("Please enter the Elements of CoDomain (in one line separated by ','): ");
         HashSet<Integer> coDomainSet = inputSet();
 
+        // accepting user input relations as ordered pairs
         HashSet<OrderedPair> relations = new HashSet<>();
         Scanner joe = new Scanner(System.in);
         System.out.print("Please enter the number of relations: ");
         int numberOfRelations = joe.nextInt();
         joe.nextLine();
 
+        Integer i = 0;
         System.out.println("Enter the ordered pairs, one by one, in x,y form:");
         for (i = 0; i < numberOfRelations; i++) {
             relations.add(inputOrderedPair(joe));
 
         }
 
-        // HashSet<OrderedPair> relations = inputOrderedPairs();
-
+        // test var
         Relation check = new Relation(domainSet, coDomainSet, relations);
 
+        // test op
         System.out.println(domainSet);
         System.out.println(coDomainSet);
         System.out.println(relations);
