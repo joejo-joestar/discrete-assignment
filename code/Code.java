@@ -132,10 +132,10 @@ public class Code {
         Scanner input = new Scanner(System.in);
 
         // initializing variables to take user input
-        System.out.println("Please enter the Elements of Domain (in one line separated by ','): ");
+        System.out.print("Please enter the Elements of Domain (in one line separated by ','): ");
         HashSet<Integer> domainSet = inputSet();
 
-        System.out.println("Please enter the Elements of CoDomain (in one line separated by ','): ");
+        System.out.print("Please enter the Elements of CoDomain (in one line separated by ','): ");
         HashSet<Integer> coDomainSet = inputSet();
 
         // accepting user input relations as ordered pairs
