@@ -15,8 +15,6 @@ class Relation {
     private HashSet<Integer> relationsX = new HashSet<>();
     private HashSet<Integer> relationsRange = new HashSet<>();
 
-    // public Relation()
-
     public Relation(HashSet<Integer> domainSet, HashSet<Integer> coDomainSet, HashSet<OrderedPair> relations) {
         this.domainSet = domainSet;
         this.coDomainSet = coDomainSet;
@@ -31,7 +29,7 @@ class Relation {
     }
 
     public boolean isRelation() {
-        if (!domainSet.containsAll(relationsX) || !coDomainSet.containsAll(relationsRange)) {
+        if (!domainSet.equals(relationsX) || !coDomainSet.containsAll(relationsRange)) {
             return false;
 
         }
@@ -62,6 +60,7 @@ class Relation {
 
 }
 
+// Class to store Objects as Ordered Pairs
 class OrderedPair implements Comparable<OrderedPair> {
     private int el1;
     private int el2;
@@ -82,6 +81,7 @@ class OrderedPair implements Comparable<OrderedPair> {
 
     }
 
+    // Methods to make the class "Hashable" (i.e., to remove duplicate elements)
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -116,21 +116,53 @@ class OrderedPair implements Comparable<OrderedPair> {
 
 }
 
+// Class to display Sets
+class Print {
+    // Method to display HashSet as a Set
+    public static void printSet(HashSet<Integer> set) {
+        Iterator<Integer> setCursor = set.iterator();
+        System.out.print("{");
+        while (setCursor.hasNext()) {
+            for (int i = 0; i < (set.size() - 1); i++) {
+                System.out.print(setCursor.next() + ", ");
+
+            }
+            System.out.println(setCursor.next() + "}");
+
+        }
+
+    }
+
+    // Method to display Ordered Pairs as a Set
+    public static void printOrderedPairs(HashSet<OrderedPair> relations) {
+        // Print the set of Relations
+        Iterator<OrderedPair> relationsCursor = relations.iterator();
+        System.out.print("{");
+        while (relationsCursor.hasNext()) {
+            for (int i = 0; i < (relations.size() - 1); i++) {
+                System.out.print(relationsCursor.next() + ", ");
+
+            }
+            System.out.println(relationsCursor.next() + "}");
+
+        }
+
+    }
+
+}
+
+// Main Class
 public class Code {
-
     // Method to accept and set the user inputs
-    public static HashSet<Integer> inputSet() {
-        // initializing variable to take user input of a set
+    public static HashSet<Integer> inputSet(Scanner sc) {
+        // Initializing variable to take user input of any set
         HashSet<Integer> set = new HashSet<>();
-        Scanner input = new Scanner(System.in);
-
-        // separates string input at specified delimiter
-        String[] domainInput = input.nextLine().split(",");
+        String[] domainInput = sc.nextLine().split(",");
 
         for (String num : domainInput) {
             String stripped = num.strip();
 
-            // converting valid inputs to integers in the try block
+            // Converting valid inputs to integers in the try block
             try {
                 set.add(Integer.parseInt(stripped));
 
@@ -144,7 +176,7 @@ public class Code {
 
     }
 
-    // method to input and return orderedPairs
+    // Method to input and return orderedPairs
     public static OrderedPair inputOrderedPair(Scanner sc) {
         while (true) {
             System.out.print("  ==> ");
@@ -168,100 +200,62 @@ public class Code {
 
     }
 
-    // Method to display Sets
-    public static void printSet(HashSet<Integer> domainSet, HashSet<Integer> coDomainSet,
-            HashSet<OrderedPair> relations) {
-
-        // Print the set X (Domain)
-        Iterator<Integer> domainCursor = domainSet.iterator();
-        System.out.println("\nThe Domain is:");
-        System.out.print("{");
-        while (domainCursor.hasNext()) {
-            for (int i = 0; i < (domainSet.size() - 1); i++) {
-                System.out.print(domainCursor.next() + ", ");
-
-            }
-            System.out.println(domainCursor.next() + "}");
-
-        }
-
-        // Print the set Y (CoDomain)
-        Iterator<Integer> coDomainCursor = coDomainSet.iterator();
-        System.out.println("\nThe CoDomain is:");
-        System.out.print("{");
-        while (coDomainCursor.hasNext()) {
-            for (int i = 0; i < (coDomainSet.size() - 1); i++) {
-                System.out.print(coDomainCursor.next() + ", ");
-
-            }
-            System.out.println(coDomainCursor.next() + "}");
-
-        }
-
-        // Print the set of Relations
-        Iterator<OrderedPair> relationsCursor = relations.iterator();
-        System.out.println("\nThe Relations is / are:");
-        System.out.print("{");
-        while (relationsCursor.hasNext()) {
-            for (int i = 0; i < (relations.size() - 1); i++) {
-                System.out.print(relationsCursor.next() + ", ");
-
-            }
-            System.out.println(relationsCursor.next() + "}");
-
-        }
-
-    }
-
+    // Main Method
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        // initializing variables to take user input
-        System.out.println("Please enter the Elements of Domain (in one line separated by ','): ");
+        // Initializing variables to take user input
+        System.out.println("\nPlease enter the Elements of Domain (in one line separated by ','):");
         System.out.print("  ==> ");
+        HashSet<Integer> domainSet = inputSet(input);
 
-        HashSet<Integer> domainSet = inputSet();
-
-        System.out.println("Please enter the Elements of CoDomain (in one line separated by ','): ");
+        System.out.println("\nPlease enter the Elements of CoDomain (in one line separated by ','):");
         System.out.print("  ==> ");
+        HashSet<Integer> coDomainSet = inputSet(input);
 
-        HashSet<Integer> coDomainSet = inputSet();
-
-        // accepting user input relations as ordered pairs
+        // Accepting user input relations as ordered pairs
         HashSet<OrderedPair> relations = new HashSet<>();
-        Scanner joe = new Scanner(System.in);
-        System.out.print("Please enter the number of relations: ");
-        int numberOfRelations = joe.nextInt();
-        joe.nextLine();
+        System.out.print("\nPlease enter the number of Relations: ");
+        int numberOfRelations = input.nextInt();
 
-        int i = 0;
+        input.nextLine();
         System.out.println("Enter the ordered pairs, one by one, in x,y form:");
-        for (i = 0; i < numberOfRelations; i++) {
-            relations.add(inputOrderedPair(joe));
+        for (int i = 0; i < numberOfRelations; i++) {
+            relations.add(inputOrderedPair(input));
 
         }
 
-        // test var
-        Relation check = new Relation(domainSet, coDomainSet, relations);
+        Relation testObject = new Relation(domainSet, coDomainSet, relations);
 
-        // Print the sets
-        printSet(domainSet, coDomainSet, relations);
+        // Printing the sets
+        System.out.println("\nThe Domain is:");
+        Print.printSet(domainSet);
+        System.out.println();
 
-        if (check.isRelation()) {
-            if (check.isFunction()) {
-                System.out.println("The input is a valid relation and is a Function of the Domain and the CoDomain");
+        System.out.println("The CoDomain is:");
+        Print.printSet(coDomainSet);
+        System.out.println();
+
+        System.out.println("The Set of Relations is:");
+        Print.printOrderedPairs(relations);
+        System.out.println();
+
+        // Printing outputs
+        if (testObject.isRelation()) {
+            if (testObject.isFunction()) {
+                System.out.println("The input is a valid Relation and is a Function of the Domain and the CoDomain");
 
             }
 
             else {
-                System.out.println("The input is a valid relation but is Not a Function of the Domain and the CoDomain");
+                System.out.println("The input is a valid Relation but is Not a Function of the Domain and the CoDomain");
 
             }
 
         }
 
         else {
-            System.out.println("The input is Not a valid relation of the Domain and the CoDomain");
+            System.out.println("The input is Not a valid Relation of the Domain and the CoDomain");
 
         }
 
