@@ -2,15 +2,16 @@
 // Joseph Cijo - 2022A7PS0019U
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Scanner;
 
 // class to define a relation
 class Relation {
 
-    private HashSet<Integer> domainSet = new HashSet<>();
-    private HashSet<Integer> coDomainSet = new HashSet<>();
-    private HashSet<OrderedPair> relations = new HashSet<>();
+    private HashSet<Integer> domainSet;
+    private HashSet<Integer> coDomainSet;
+    private HashSet<OrderedPair> relations;
     private HashSet<Integer> relationsX = new HashSet<>();
     private HashSet<Integer> relationsRange = new HashSet<>();
 
@@ -21,27 +22,28 @@ class Relation {
         this.coDomainSet = coDomainSet;
         this.relations = relations;
 
+        for (OrderedPair pair : relations) {
+            relationsX.add(pair.getEl1());
+            relationsRange.add(pair.getEl2());
+
+        }
+
     }
 
     public boolean isRelation() {
-        for (OrderedPair pair : relations) {
-            relationsX.add(pair.getEl1());
-
-        }
-
-        if (domainSet.equals(relationsX)) {
-            return true;
-
-        }
-
-        else {
+        if (!domainSet.containsAll(relationsX) || !coDomainSet.containsAll(relationsRange)) {
             return false;
 
         }
 
+        else {
+            return true;
+
+        }
     }
 
     public boolean isFunction() {
+
         HashSet<Integer> testForX = new HashSet<>();
 
         for (OrderedPair pair : relations) {
@@ -51,10 +53,7 @@ class Relation {
 
             }
 
-            else {
-                testForX.add(xValue);
-
-            }
+            testForX.add(xValue);
 
         }
         return true;
@@ -106,11 +105,13 @@ class OrderedPair implements Comparable<OrderedPair> {
     @Override
     public int hashCode() {
         return Objects.hash(el1, el2);
+
     }
 
     @Override
     public String toString() {
         return "(" + el1 + ", " + el2 + ")";
+
     }
 
 }
@@ -150,6 +151,7 @@ public class Code {
             String[] input = sc.nextLine().split(",", 3);
             if (input.length < 2) {
                 continue;
+
             }
 
             try {
@@ -159,18 +161,70 @@ public class Code {
             } catch (Exception e) {
                 System.out.println("  Please enter in x,y format, try again:");
                 continue;
+
             }
+
         }
+
+    }
+
+    // Method to display Sets
+    public static void printSet(HashSet<Integer> domainSet, HashSet<Integer> coDomainSet,
+            HashSet<OrderedPair> relations) {
+
+        // Print the set X (Domain)
+        Iterator<Integer> domainCursor = domainSet.iterator();
+        System.out.println("\nThe Domain is:");
+        System.out.print("{");
+        while (domainCursor.hasNext()) {
+            for (int i = 0; i < (domainSet.size() - 1); i++) {
+                System.out.print(domainCursor.next() + ", ");
+
+            }
+            System.out.println(domainCursor.next() + "}");
+
+        }
+
+        // Print the set Y (CoDomain)
+        Iterator<Integer> coDomainCursor = coDomainSet.iterator();
+        System.out.println("\nThe CoDomain is:");
+        System.out.print("{");
+        while (coDomainCursor.hasNext()) {
+            for (int i = 0; i < (coDomainSet.size() - 1); i++) {
+                System.out.print(coDomainCursor.next() + ", ");
+
+            }
+            System.out.println(coDomainCursor.next() + "}");
+
+        }
+
+        // Print the set of Relations
+        Iterator<OrderedPair> relationsCursor = relations.iterator();
+        System.out.println("\nThe Relations is / are:");
+        System.out.print("{");
+        while (relationsCursor.hasNext()) {
+            for (int i = 0; i < (relations.size() - 1); i++) {
+                System.out.print(relationsCursor.next() + ", ");
+
+            }
+            System.out.println(relationsCursor.next() + "}");
+
+        }
+
     }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
         // initializing variables to take user input
-        System.out.print("Please enter the Elements of Domain (in one line separated by ','): ");
+        System.out.println("Please enter the Elements of Domain (in one line separated by ','): ");
+        System.out.print("  ==> ");
+
         HashSet<Integer> domainSet = inputSet();
 
-        System.out.print("Please enter the Elements of CoDomain (in one line separated by ','): ");
+        System.out.println("Please enter the Elements of CoDomain (in one line separated by ','): ");
+        System.out.print("  ==> ");
+
         HashSet<Integer> coDomainSet = inputSet();
 
         // accepting user input relations as ordered pairs
@@ -180,7 +234,7 @@ public class Code {
         int numberOfRelations = joe.nextInt();
         joe.nextLine();
 
-        Integer i = 0;
+        int i = 0;
         System.out.println("Enter the ordered pairs, one by one, in x,y form:");
         for (i = 0; i < numberOfRelations; i++) {
             relations.add(inputOrderedPair(joe));
@@ -190,12 +244,26 @@ public class Code {
         // test var
         Relation check = new Relation(domainSet, coDomainSet, relations);
 
-        // test op
-        System.out.println(domainSet);
-        System.out.println(coDomainSet);
-        System.out.println(relations);
-        System.out.println(check.isRelation());
-        System.out.println(check.isFunction());
+        // Print the sets
+        printSet(domainSet, coDomainSet, relations);
+
+        if (check.isRelation()) {
+            if (check.isFunction()) {
+                System.out.println("The input is a valid relation and is a Function of the Domain and the CoDomain");
+
+            }
+
+            else {
+                System.out.println("The input is a valid relation but is Not a Function of the Domain and the CoDomain");
+
+            }
+
+        }
+
+        else {
+            System.out.println("The input is Not a valid relation of the Domain and the CoDomain");
+
+        }
 
     }
 
