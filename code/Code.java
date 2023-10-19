@@ -10,19 +10,54 @@ class Relation {
 
     private HashSet<Integer> domainSet = new HashSet<>();
     private HashSet<Integer> coDomainSet = new HashSet<>();
+    private HashSet<OrderedPair> relations = new HashSet<>();
     private HashSet<Integer> relationsX = new HashSet<>();
     private HashSet<Integer> relationsRange = new HashSet<>();
-    private int endLimit;
 
     // public Relation()
 
     public Relation(HashSet<Integer> domainSet, HashSet<Integer> coDomainSet, HashSet<OrderedPair> relations) {
         this.domainSet = domainSet;
         this.coDomainSet = coDomainSet;
+        this.relations = relations;
 
     }
 
-    public void checkRelation() {
+    public boolean isRelation() {
+        for (OrderedPair pair : relations) {
+            relationsX.add(pair.getEl1());
+
+        }
+
+        if (domainSet.equals(relationsX)) {
+            return true;
+
+        }
+
+        else {
+            return false;
+
+        }
+
+    }
+
+    public boolean isFunction() {
+        HashSet<Integer> testForX = new HashSet<>();
+
+        for (OrderedPair pair : relations) {
+            int xValue = pair.getEl1();
+            if (testForX.contains(xValue)) {
+                return false;
+
+            }
+
+            else {
+                testForX.add(xValue);
+
+            }
+
+        }
+        return true;
 
     }
 
@@ -159,6 +194,9 @@ public class Code {
         System.out.println(domainSet);
         System.out.println(coDomainSet);
         System.out.println(relations);
+        System.out.println(check.isRelation());
+        System.out.println(check.isFunction());
+
     }
 
 }
