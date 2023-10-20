@@ -1,0 +1,75 @@
+
+Case1 (Relation and Function) (only one-one):
+
+The Domain is:
+  {1, 2, 3, 4}
+
+The CoDomain is:
+  {2, 3, 4, 5, 6}
+
+The Set of Relations is:
+  {(1, 2), (2, 3), (3, 4), (4, 5)}
+
+The input is a valid Relation and is a Function of the Domain and the CoDomain
+
+---
+
+Case2 (Relation and Function) (only onto):
+
+The Domain is:
+  {1, 2, 3, 4, 5}
+
+The CoDomain is:
+  {2, 3, 4, 5}
+
+The Set of Relations is:
+  {(5, 5), (1, 2), (2, 3), (3, 4), (4, 5)}
+
+The input is a valid Relation and is a Function of the Domain and the CoDomain
+
+---
+
+Case3 (Relation and Function)(one-one and onto):
+
+The Domain is:
+  {1, 2, 3, 4, 5}
+
+The CoDomain is:
+  {2, 3, 4, 5, 6}
+
+The Set of Relations is:
+  {(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)}
+
+The input is a valid Relation and is a Function of the Domain and the CoDomain
+
+---
+
+Case4 (Relation But Not Function):
+
+The Domain is:
+  {1, 2, 3, 4, 5}
+
+The CoDomain is:
+  {2, 3, 4, 5, 6}
+
+The Set of Relations is:
+  {(1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (5, 3)}
+
+The input is a valid Relation but is Not a Function of the Domain and the CoDomain
+
+---
+
+Case5 (Neither Relation nor Function):
+
+The Domain is:
+  {1, 2, 3, 4, 5, 6}
+
+The CoDomain is:
+  {2, 3, 4, 5, 6}
+
+The Set of Relations is:
+  {(1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 1)}
+
+The input is Not a valid Relation of the Domain and the CoDomain
+
+---

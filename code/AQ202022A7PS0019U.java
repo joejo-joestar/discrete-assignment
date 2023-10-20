@@ -156,7 +156,7 @@ class Print {
 }
 
 // Main Class
-public class Code {
+public class AQ202022A7PS0019U {
     // Method to accept and set the user inputs
     public static HashSet<Integer> inputSet(Scanner sc) {
         // Initializing variable to take user input of any set
