@@ -1,2 +1,2 @@
 # discreet-assignment
- java Code for my Discreet Sciences (CS F222) Assignment
+ java Code and presentation for my Discrete Sciences (CS F222) Assignment
