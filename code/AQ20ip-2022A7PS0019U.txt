@@ -1,4 +1,6 @@
 
+IMPORTANT: Input must be selected one line at a time
+
 Case1 (Relation and Function) (only one-one):
 
 1,2,3,4
